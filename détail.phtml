@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="commande.css">
+</head>
+<body>
+
+
+    
+    <div>
+    <section>
+        <a href="commande.php"><img src="back.png" alt=""></a>
+    <h2>Bon de la commande N°: <?=$order;?></h2>
+    </section>
+    <p class="h1">Nom du client : <?=$detail['customerName'];?></p>
+    <p class="h1">Numéro du client : <?=$detail['customerNumber'];?></p>
+    <p class="h2">Prénom du contact : <?=$detail['contactLastName'];?></p>
+    <p class="h2">Nom du contact : <?=$detail['contactFirstName'];?></p>
+    <p class="h3">Adresse : <?=$detail['addressLine1'];?></p>
+    <p class="h3">Ville : <?=$detail['city'];?></p>
+    </div>
+    <hr>
+
+
+    <table class="table table-primary table-striped">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+                <th>Sous-total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($detailproduit as $det): ?>
+            <tr>
+                <td><?=$det['productName'];?></td>
+                <td><?=$det['quantityOrdered'];?></td>
+                <td><?=$det['priceEach'];?></td>
+                <td><?=$det['quantityOrdered']*$det['priceEach'] ;?></td>
+            </tr>
+            <?php endforeach;?>
+            <tr>
+                <th colspan="1">Total de la commande hors taxe</td>
+                <td colspan="3"><?=number_format($somme['somme'], 2, ',', ' ');?></td>
+            </tr>
+            <tr>
+                <th colspan="1">Montant de TVA</td>
+                <td colspan="3"><?=number_format($somme['somme']*0.2, 2, ',', ' ');?></td>
+            </tr>
+            <tr>
+                <th colspan="1" >Total de la commande TTC</td>
+                <td colspan="3"><?=number_format($somme['somme']*1.2, 2, ',', ' ');?></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
